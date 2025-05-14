@@ -10,7 +10,9 @@ if not r:
     exit()
 
 reader = r[0].createConnection()
+
 last_uid = None
+last_sent_time = 0
 
 while True:
     try:
@@ -22,29 +24,33 @@ while True:
         if sw1 == 0x90:
             nfc_id = ''.join('{:02X}'.format(x) for x in response)
 
-            # Only process if it's a new scan (not the same tag)
-            if nfc_id != last_uid:
+            # Only send if different or enough time has passed
+            if nfc_id != last_uid or (time.time() - last_sent_time > 5):
+                last_uid = nfc_id
+                last_sent_time = time.time()
+
                 print("✅ UID:", nfc_id)
 
-                # Send to Railway
-                response = requests.post(f"{RAILWAY_URL}/admin/nfc-update", json={"nfc_id": nfc_id})
-                print("📨 Sent to Railway Flask:", response.text)
+                requests.post(f"{RAILWAY_URL}/admin/nfc-update", json={"nfc_id": nfc_id})
+                print("📨 Sent to Railway")
 
-                # Optionally send to register/out/in
                 requests.post(f"{RAILWAY_URL}/admin/admin-register-item", json={"nfc_id": nfc_id})
                 requests.post(f"{RAILWAY_URL}/admin/out", json={"nfc_id": nfc_id})
                 requests.post(f"{RAILWAY_URL}/admin/in", json={"nfc_id": nfc_id})
 
-                last_uid = nfc_id
-                print("🕒 Waiting for tag removal...")
-
-            else:
-                print("⚠️ Same tag detected, waiting for new tag...")
-
-        time.sleep(0.5)
+        time.sleep(1)
 
     except Exception as e:
-        # When no tag is present
-        last_uid = None
+        # Reset if error or no tag
         print("⛔ No card or connection failed:", e)
+
+        if last_uid is not None:
+            print("🧹 Clearing last UID due to removal or error.")
+            last_uid = None
+            try:
+                requests.post(f"{RAILWAY_URL}/admin/nfc-update", json={"nfc_id": ""})
+                print("📨 Cleared UID in Railway")
+            except:
+                print("⚠️ Failed to notify Railway about UID clear.")
+
         time.sleep(1)
