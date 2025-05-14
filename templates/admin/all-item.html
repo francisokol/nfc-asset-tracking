@@ -1,0 +1,1058 @@
+{% extends "admin/layout.html"%}
+
+{% block content %}
+
+{% if notifications %}
+    {% for note in notifications %}
+        <div class="alert alert-warning">
+            ⚠️ {{ note }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-xl-4 my-2 col-lg-4 col-sm-12">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            
+            {% if category == 'updatesuccess' %}
+              <div class="alert alert-info alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% elif category == 'deletesuccess' %}
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% elif category == 'pendingsuccess' %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+              {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+            </div>
+      </div>
+
+<div class="container">
+    {% include 'admin/navbar.html' %}
+
+    <!-- Search Form -->
+    <div class="my-2">
+        <form action="" method="POST" style="width:100%">
+            <div class="d-flex align-items-center">
+                <select name="room_filter" class="form-select my-1 w-25" style="margin-right:10px;">
+                    <option value="all">All Rooms</option>
+                    <option value="CTH101">CTH101</option>
+                    <option value="CTH102">CTH102</option>
+                    <option value="CTH103">CTH103</option>
+                    <option value="CTH104">CTH104</option>
+                    <option value="CTH105">CTH105</option>
+                    <option value="CTH106">CTH106</option>
+                    <option value="CTH110">CTH110</option>
+                    <option value="CTH111">CTH111</option>
+                    <option value="CTH112">CTH112</option>
+                    <option value="CTH113">CTH113</option>
+                    <option value="CTH201">CTH201</option>
+                    <option value="CTH202">CTH202</option>
+                    <option value="CTH203">CTH203</option>
+                    <option value="CTH204">CTH204</option>
+                    <option value="CTH205">CTH205</option>
+                    <option value="CTH206">CTH206</option>
+                    <option value="CTH207">CTH207</option>
+                    <option value="CTH208">CTH208</option>
+                    <option value="CTH209">CTH209</option>
+                    <option value="CTH210">CTH210</option>
+                    <option value="CTH211">CTH211</option>
+                    <option value="CTH212">CTH212</option>
+                    <option value="CTH213">CTH213</option>
+                    <option value="CTH214">CTH214</option>
+                    <option value="Pending">Pending</option>
+                </select>
+                <button type="submit" class="btn btn-success" style="margin-left:10px;">Search</button>
+            </div>
+        </form>
+    </div>
+    
+    
+
+    <!-- CTH 101 -->
+    <div class="my-4">
+        <h5><b>CTH 101</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items101 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 102 -->
+    <div class="my-4">
+        <h5><b>CTH 102</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items102 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- CTH 103 -->
+    <div class="my-4">
+        <h5><b>CTH 103</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items103 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 104 -->
+    <div class="my-4">
+        <h5><b>CTH 104</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items104 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div> 
+
+    <!-- CTH 105 -->
+    <div class="my-4">
+        <h5><b>CTH 105</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items105 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 106 -->
+    <div class="my-4">
+        <h5><b>CTH 106</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items106 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 110 -->
+    <div class="my-4">
+        <h5><b>CTH 110</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items110 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 111 -->
+    <div class="my-4">
+        <h5><b>CTH 111</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items111 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 112 -->
+    <div class="my-4">
+        <h5><b>CTH 112</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items112 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 113 -->
+    <div class="my-4">
+        <h5><b>CTH 113</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items113 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 201 -->
+    <div class="my-4">
+        <h5><b>CTH 201</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items201 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 202 -->
+    <div class="my-4">
+        <h5><b>CTH 202</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items202 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 203 -->
+    <div class="my-4">
+        <h5><b>CTH 203</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items203 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 204 -->
+    <div class="my-4">
+        <h5><b>CTH 204</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items204 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 205 -->
+    <div class="my-4">
+        <h5><b>CTH 205</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items205 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 206 -->
+    <div class="my-4">
+        <h5><b>CTH 206</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items206 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 207 -->
+    <div class="my-4">
+        <h5><b>CTH 207</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items207 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 208 -->
+    <div class="my-4">
+        <h5><b>CTH 208</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items208 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 209 -->
+    <div class="my-4">
+        <h5><b>CTH 209</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items209 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 210 -->
+    <div class="my-4">
+        <h5><b>CTH 210</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items210 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 211 -->
+    <div class="my-4">
+        <h5><b>CTH 211</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items211 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 212 -->
+    <div class="my-4">
+        <h5><b>CTH 212</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items212 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 213 -->
+    <div class="my-4">
+        <h5><b>CTH 213</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items213 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CTH 214 -->
+    <div class="my-4">
+        <h5><b>CTH 214</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    {% for item in items214 %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- PENDING -->
+    <div class="my-4">
+        <h5><b>Pending Items</b></h5>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NFC ID</th>
+                        <th>Condition</th>
+                        <th>Create Date</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in pending_items %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nfc_id }}</td>
+                        <td>{{ item.condition }}</td>
+                        <td>{{ item.create_date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>
+                            <a href="/admin/update-item/{{ item.id }}" class="btn btn-primary btn-sm">Update</a>
+                            <a href="/admin/delete-item/{{ item.id }}" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
