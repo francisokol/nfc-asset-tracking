@@ -2,6 +2,9 @@ from smartcard.System import readers
 import requests
 import time
 
+# ✅ Replace this with your actual Railway app URL
+RAILWAY_URL = "https://your-railway-app.up.railway.app"
+
 r = readers()
 if not r:
     print("❌ No NFC reader found. Make sure the driver is installed.")
@@ -19,11 +22,16 @@ while True:
         if sw1 == 0x90:
             nfc_id = ''.join('{:02X}'.format(x) for x in response)
             print("✅ UID:", nfc_id)
-            response = requests.post("http://192.168.157.15:5000/admin/nfc-update", json={"nfc_id": nfc_id})
-            print("📨 Sent to Flask:", response.text)   
+
+            # 🔁 Send NFC data to the Railway-hosted Flask app
+            try:
+                response = requests.post(f"{RAILWAY_URL}/admin/nfc-update", json={"nfc_id": nfc_id})
+                print("📨 Sent to Railway Flask:", response.text)
+            except requests.exceptions.RequestException as e:
+                print("❌ Failed to send to Railway Flask:", e)
+
             break
 
     except Exception as e:
         print("⛔ No card or connection failed:", e)
         time.sleep(1)
-    
