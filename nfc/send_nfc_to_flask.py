@@ -2,7 +2,6 @@ from smartcard.System import readers
 import requests
 import time
 
-# ✅ Replace this with your actual Railway app URL
 RAILWAY_URL = "https://nfc-asset-tracking-production.up.railway.app"
 
 r = readers()
@@ -11,6 +10,7 @@ if not r:
     exit()
 
 reader = r[0].createConnection()
+last_uid = None
 
 while True:
     try:
@@ -21,17 +21,30 @@ while True:
 
         if sw1 == 0x90:
             nfc_id = ''.join('{:02X}'.format(x) for x in response)
-            print("✅ UID:", nfc_id)
 
-            # 🔁 Send NFC data to the Railway-hosted Flask app
-            try:
+            # Only process if it's a new scan (not the same tag)
+            if nfc_id != last_uid:
+                print("✅ UID:", nfc_id)
+
+                # Send to Railway
                 response = requests.post(f"{RAILWAY_URL}/admin/nfc-update", json={"nfc_id": nfc_id})
                 print("📨 Sent to Railway Flask:", response.text)
-            except requests.exceptions.RequestException as e:
-                print("❌ Failed to send to Railway Flask:", e)
 
-            break
+                # Optionally send to register/out/in
+                requests.post(f"{RAILWAY_URL}/admin/admin-register-item", json={"nfc_id": nfc_id})
+                requests.post(f"{RAILWAY_URL}/admin/out", json={"nfc_id": nfc_id})
+                requests.post(f"{RAILWAY_URL}/admin/in", json={"nfc_id": nfc_id})
+
+                last_uid = nfc_id
+                print("🕒 Waiting for tag removal...")
+
+            else:
+                print("⚠️ Same tag detected, waiting for new tag...")
+
+        time.sleep(0.5)
 
     except Exception as e:
+        # When no tag is present
+        last_uid = None
         print("⛔ No card or connection failed:", e)
         time.sleep(1)
