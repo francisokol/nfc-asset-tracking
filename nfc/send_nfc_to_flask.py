@@ -3,7 +3,7 @@ import requests
 import time
 
 # ✅ Replace this with your actual Railway app URL
-RAILWAY_URL = "https://your-railway-app.up.railway.app"
+RAILWAY_URL = "nfc-asset-tracking-production.up.railway.app"
 
 r = readers()
 if not r:
