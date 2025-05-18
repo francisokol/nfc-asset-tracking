@@ -211,9 +211,17 @@
         </div>
     </div>
     
-    <div class="text-center my-4">
-        <a href="{{ url_for('export_daily_logs') }}" class="btn btn-info" style="background-color: #2ec3f5; border-color: #add8e6; color: #000;">
-          📄 Export Daily Logs to PDF
-        </a>
+    <div class="d-flex justify-content-center my-4 gap-3 flex-wrap">
+    <a href="{{ url_for('export_daily_logs') }}" class="btn btn-info"
+       style="background-color: #2ec3f5; border-color: #add8e6; color: #000;">
+        📄 Export Daily Logs to PDF
+    </a>
+
+    <form method="POST" action="{{ url_for('delete_logs') }}"
+          onsubmit="return confirm('Are you sure you want to delete all logs?');">
+        <button type="submit" class="btn btn-danger">
+            🗑️ Delete All Logs
+        </button>
+    </form>
     </div>
 {% endblock content %}
